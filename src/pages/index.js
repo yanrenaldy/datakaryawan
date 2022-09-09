@@ -6,6 +6,7 @@ import ViewSDPlus from "./ViewSDPlus";
 import ViewSMP from "./ViewSMP";
 import ViewSMA from "./ViewSMA";
 import ViewStaff from "./ViewStaff";
+import ViewNonAktif from "./ViewNonAktif";
 
 export {
   HomePage,
@@ -16,4 +17,5 @@ export {
   ViewSMP,
   ViewSMA,
   ViewStaff,
+  ViewNonAktif,
 };

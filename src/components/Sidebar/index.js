@@ -13,6 +13,7 @@ import { Row, Col, Image } from "react-bootstrap";
 import {
   HomePage,
   ViewData,
+  ViewNonAktif,
   ViewSD,
   ViewSDPlus,
   ViewSMA,
@@ -26,14 +27,14 @@ import "../../App.css";
 
 function Sidebar() {
   const [windowHeight, setwindowHeight] = useState(window.innerHeight);
-  const [windowWidth, setwindowWidth] = useState(window.innerWidth-270);
+  const [windowWidth, setwindowWidth] = useState(window.innerWidth - 270);
 
   useEffect(() => {
     window.addEventListener("resize", setwindowHeight(window.innerHeight));
   }, [windowHeight]);
 
   useEffect(() => {
-    window.addEventListener("resize", setwindowWidth(window.innerWidth-270));
+    window.addEventListener("resize", setwindowWidth(window.innerWidth - 270));
   }, [windowWidth]);
 
   console.log(windowWidth);
@@ -102,13 +103,18 @@ function Sidebar() {
                       Staff
                       <Link to="/staff" />
                     </MenuItem>
+                    <MenuItem>
+                      Non Aktif
+                      <Link to="/nonaktif" />
+                    </MenuItem>
                   </SubMenu>
                 </Menu>
               }
             </SidebarContent>
           </ProSidebar>
         </Col>
-        <Col lg={10}
+        <Col
+          lg={10}
           className="konten"
           style={{
             width: windowWidth,
@@ -123,6 +129,7 @@ function Sidebar() {
             <Route path="/smp" element={<ViewSMP />} />
             <Route path="/sma" element={<ViewSMA />} />
             <Route path="/staff" element={<ViewStaff />} />
+            <Route path="/nonaktif" element={<ViewNonAktif />} />
           </Routes>
         </Col>
       </Row>

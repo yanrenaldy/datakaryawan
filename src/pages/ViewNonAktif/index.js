@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Nav, Navbar, Form, Button, Row, Col, Table } from "react-bootstrap";
+import { Row, Col, Table } from "react-bootstrap";
 import axios from "axios";
+import NavigationBar from "../../components/NavigationBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { API_URL } from "../../utils/constants";
 import LoadingPage from "../../components/LoadingPage";
-import NavigationBar from "../../components/NavigationBar"
 
-function ViewTK() {
-  const [dataGuruTK, setdataGuruTK] = useState([]);
+function ViewNonAktif() {
+  const [dataNonAktif, setdataNonAktif] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
     axios
-      .get(API_URL + "viewgurutk")
+      .get(API_URL + "viewnonaktif")
       .then((response) => response.data)
       .then((data) => {
-        if (isMounted) setdataGuruTK(data);
+        if (isMounted) setdataNonAktif(data);
         setLoading(false);
       });
     return () => {
@@ -34,7 +34,7 @@ function ViewTK() {
       </Row>
       <Row>
         <Col style={{ marginTop: "90px", marginBottom: "20px" }}>
-          <h5>Data Guru TK</h5>
+          <h5>Data Guru & Staff Non Aktif</h5>
         </Col>
       </Row>
       <Row style={{ marginRight: "5px" }}>
@@ -42,7 +42,7 @@ function ViewTK() {
           {loading ? (
             <LoadingPage />
           ) : (
-            <Table bordered hover id="tabelGuruTK">
+            <Table bordered hover id="tabelNonAktif">
               <thead>
                 <tr>
                   <th>#</th>
@@ -55,14 +55,14 @@ function ViewTK() {
                 </tr>
               </thead>
               <tbody>
-                {dataGuruTK.map((dataGuruTK, index) => (
+                {dataNonAktif.map((dataNonAktif, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
-                    <td>{dataGuruTK.nama}</td>
-                    <td>{dataGuruTK.tempatLahir}</td>
-                    <td>{dataGuruTK.tanggalLahir}</td>
-                    <td>0{dataGuruTK.noHP}</td>
-                    <td>{dataGuruTK.noSkPertama}</td>
+                    <td>{dataNonAktif.nama}</td>
+                    <td>{dataNonAktif.tempatLahir}</td>
+                    <td>{dataNonAktif.tanggalLahir}</td>
+                    <td>0{dataNonAktif.noHP}</td>
+                    <td>{dataNonAktif.noSkPertama}</td>
                     <td width="80px">
                       <FontAwesomeIcon
                         icon={faEye}
@@ -81,4 +81,4 @@ function ViewTK() {
   );
 }
 
-export default ViewTK;
+export default ViewNonAktif;

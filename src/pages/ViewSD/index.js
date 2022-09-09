@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Nav, Navbar, Form, Button, Row, Col, Table } from "react-bootstrap";
+import { Row, Col, Table } from "react-bootstrap";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { API_URL } from "../../utils/constants";
 import LoadingPage from "../../components/LoadingPage";
+import NavigationBar from "../../components/NavigationBar";
 
 function ViewSD() {
   const [dataGuruSD, setdataGuruSD] = useState([]);
@@ -28,31 +29,11 @@ function ViewSD() {
     <div>
       <Row>
         <Col>
-          <Navbar bg="light" style={{ marginLeft: "-15px" }}>
-            <Nav
-              className="me-auto my-2 my-lg-1"
-              style={{ maxHeight: "100px" }}
-            >
-              <Form className="d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  className="me-2 ms-3"
-                  aria-label="Search"
-                />
-                <Button variant="outline-success">Search</Button>
-              </Form>
-            </Nav>
-            <Form className="d-flex">
-              <Button variant="primary" className="me-3">
-                Tambah Data
-              </Button>
-            </Form>
-          </Navbar>
+        <NavigationBar />
         </Col>
       </Row>
       <Row>
-        <Col style={{ marginTop: "25px", marginBottom: "20px" }}>
+        <Col style={{ marginTop: "90px", marginBottom: "20px" }}>
           <h5>Data Guru SD</h5>
         </Col>
       </Row>

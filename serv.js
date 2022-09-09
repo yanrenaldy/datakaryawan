@@ -155,9 +155,9 @@ app.get("/btnkepsek", (req, res) => {
 });
 
 //fetch staff non aktif
-app.get("/btnnonaktif", (req, res) => {
+app.get("/viewnonaktif", (req, res) => {
   conn.query(
-    "select dataDiri.id, dataDiri.nama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.statusPekerjaan='Non Aktif'",
+    "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Non Aktif'",
     (err, rows) => {
       res.json(rows);
     }
