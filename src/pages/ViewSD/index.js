@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Table } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -10,6 +11,7 @@ import NavigationBar from "../../components/NavigationBar";
 function ViewSD() {
   const [dataGuruSD, setdataGuruSD] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let isMounted = true;
@@ -25,11 +27,15 @@ function ViewSD() {
     };
   }, []);
 
+  const handleClick = (state) => {
+    navigate("/view", { state: state });
+  };
+
   return (
     <div>
       <Row>
         <Col>
-        <NavigationBar />
+          <NavigationBar />
         </Col>
       </Row>
       <Row>
@@ -67,6 +73,7 @@ function ViewSD() {
                       <FontAwesomeIcon
                         icon={faEye}
                         style={{ marginRight: "10px", marginLeft: "10px" }}
+                        onClick={() => handleClick(dataGuruSD.nama)}
                       />
                       <FontAwesomeIcon icon={faTrash} />
                     </td>
