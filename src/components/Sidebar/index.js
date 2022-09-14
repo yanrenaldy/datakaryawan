@@ -5,22 +5,11 @@ import {
   SidebarContent,
   Menu,
   MenuItem,
-  SubMenu,
 } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import { Routes, Route, Link } from "react-router-dom";
 import { Row, Col, Image } from "react-bootstrap";
-import {
-  HomePage,
-  ViewData,
-  ViewNonAktif,
-  ViewSD,
-  ViewSDPlus,
-  ViewSMA,
-  ViewSMP,
-  ViewStaff,
-  ViewTK,
-} from "../../pages";
+import { DataKaryawan, HomePage, ViewData } from "../../pages";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faPeopleGroup } from "@fortawesome/free-solid-svg-icons";
 import "../../App.css";
@@ -36,8 +25,6 @@ function Sidebar() {
   useEffect(() => {
     window.addEventListener("resize", setwindowWidth(window.innerWidth - 270));
   }, [windowWidth]);
-
-  console.log(windowWidth);
 
   return (
     <div>
@@ -74,40 +61,12 @@ function Sidebar() {
                 <Menu iconShape="square">
                   <MenuItem icon={<FontAwesomeIcon icon={faHome} />}>
                     Home
+                    <Link to="/" />
                   </MenuItem>
-                  <SubMenu
-                    title="Data Karyawan"
-                    icon={<FontAwesomeIcon icon={faPeopleGroup} />}
-                  >
-                    <MenuItem>
-                      TK
-                      <Link to="/tk" />
-                    </MenuItem>
-                    <MenuItem>
-                      SD
-                      <Link to="/sd" />
-                    </MenuItem>
-                    <MenuItem>
-                      SD Plus
-                      <Link to="/sdplus" />
-                    </MenuItem>
-                    <MenuItem>
-                      SMP
-                      <Link to="/smp" />
-                    </MenuItem>
-                    <MenuItem>
-                      SMA
-                      <Link to="/sma" />
-                    </MenuItem>
-                    <MenuItem>
-                      Staff
-                      <Link to="/staff" />
-                    </MenuItem>
-                    <MenuItem>
-                      Non Aktif
-                      <Link to="/nonaktif" />
-                    </MenuItem>
-                  </SubMenu>
+                  <MenuItem icon={<FontAwesomeIcon icon={faPeopleGroup} />}>
+                    Data Karyawan
+                    <Link to="/datakaryawan" />
+                  </MenuItem>
                 </Menu>
               }
             </SidebarContent>
@@ -123,13 +82,7 @@ function Sidebar() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/view" element={<ViewData />} />
-            <Route path="/tk" element={<ViewTK />} />
-            <Route path="/sd" element={<ViewSD />} />
-            <Route path="/sdplus" element={<ViewSDPlus />} />
-            <Route path="/smp" element={<ViewSMP />} />
-            <Route path="/sma" element={<ViewSMA />} />
-            <Route path="/staff" element={<ViewStaff />} />
-            <Route path="/nonaktif" element={<ViewNonAktif />} />
+            <Route path="/datakaryawan" element={<DataKaryawan />} />
           </Routes>
         </Col>
       </Row>

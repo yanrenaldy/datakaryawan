@@ -16,43 +16,53 @@ function ViewData() {
   const [dataRiwayatPekerjaan, setdataRiwayatPekerjaan] = useState([]);
   const [dataSusunanKeluarga, setdataSusunanKeluarga] = useState([]);
   const [pasFoto, setpasFoto] = useState([]);
+  const [contoh, setcontoh] = useState({
+    tingkat: location.state.tingkat,
+    nama: location.state.nama,
+  });
 
   useEffect(() => {
     let isMounted = true;
     axios
-      .get(API_URL + "datadiri/" + location.state)
+      .get(API_URL + "datadiri/" + contoh.nama)
       .then((response) => response.data)
       .then((data) => {
         if (isMounted) setdataDiri(data);
       });
     axios
-      .get(API_URL + "datapendidikan/" + location.state)
+      .get(API_URL + "datapendidikan/" + contoh.nama)
       .then((response) => response.data)
       .then((data) => {
         if (isMounted) setdataPendidikan(data);
       });
     axios
-      .get(API_URL + "datapekerjaan/" + location.state)
+      .get(API_URL + "datapekerjaan/" + contoh.nama)
       .then((response) => response.data)
       .then((data) => {
         if (isMounted) setdataPekerjaan(data);
       });
     axios
-      .get(API_URL + "datariwayatpekerjaan/" + location.state)
+      .get(API_URL + "datariwayatpekerjaan/" + contoh.nama)
       .then((response) => response.data)
       .then((data) => {
         if (isMounted) setdataRiwayatPekerjaan(data);
       });
     axios
-      .get(API_URL + "datasusunankeluarga/" + location.state)
+      .get(API_URL + "datasusunankeluarga/" + contoh.nama)
       .then((response) => response.data)
       .then((data) => {
         if (isMounted) setdataSusunanKeluarga(data);
       });
+      axios
+      .get(API_URL + "pasfoto/" + contoh.nama)
+      .then((response) => response.data)
+      .then((data) => {
+        if (isMounted) setpasFoto(data);
+      });
     return () => {
       isMounted = false;
     };
-  }, [location.state]);
+  }, [contoh.nama]);
 
   return (
     <div>
@@ -66,10 +76,10 @@ function ViewData() {
         }}
       >
         <Col xs={1}>
-          <FontAwesomeIcon icon={faArrowLeft} onClick={() => navigate(-1)} />
+          <FontAwesomeIcon icon={faArrowLeft} onClick={() => navigate("/datakaryawan", {state: contoh.tingkat})} />
         </Col>
         <Col xs={10}>
-          <h5>Data {location.state}</h5>
+          <h5>Data {contoh.nama}</h5>
         </Col>
       </Row>
       <Row>
@@ -225,7 +235,7 @@ function ViewData() {
           <Row>
             <Col>
               {dataPekerjaan.map((dataPekerjaan, index) => (
-                <div className="d-grid gap-2 mt-2">
+                <div className="d-grid gap-2 mt-2" key={index}>
                   <Button variant="primary">Upload Foto</Button>
                   <Button variant="primary" disabled={dataPekerjaan.disable}>
                     Nonaktifkan

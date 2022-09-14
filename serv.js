@@ -85,7 +85,7 @@ app.get("/datakaryawan", (req, res) => {
 });
 
 // fetch guru tk
-app.get("/viewgurutk", (req, res) => {
+app.get("/tk", (req, res) => {
   conn.query(
     "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Guru TK'",
     (err, rows) => {
@@ -95,7 +95,7 @@ app.get("/viewgurutk", (req, res) => {
 });
 
 //fetch guru sd reg
-app.get("/viewgurusd", (req, res) => {
+app.get("/sd", (req, res) => {
   conn.query(
     "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Guru SD Reguler'",
     (err, rows) => {
@@ -105,7 +105,7 @@ app.get("/viewgurusd", (req, res) => {
 });
 
 //fetch guru sd plus
-app.get("/viewgurusdplus", (req, res) => {
+app.get("/sdplus", (req, res) => {
   conn.query(
     "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Guru SD Plus'",
     (err, rows) => {
@@ -115,7 +115,7 @@ app.get("/viewgurusdplus", (req, res) => {
 });
 
 //fetch guru smp
-app.get("/viewgurusmp", (req, res) => {
+app.get("/smp", (req, res) => {
   conn.query(
     "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Guru SMP'",
     (err, rows) => {
@@ -125,7 +125,7 @@ app.get("/viewgurusmp", (req, res) => {
 });
 
 //fetch guru sma
-app.get("/viewgurusma", (req, res) => {
+app.get("/sma", (req, res) => {
   conn.query(
     "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Guru SMA'",
     (err, rows) => {
@@ -135,7 +135,7 @@ app.get("/viewgurusma", (req, res) => {
 });
 
 //fetch staff
-app.get("/viewstaff", (req, res) => {
+app.get("/staff", (req, res) => {
   conn.query(
     "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Staff'",
     (err, rows) => {
@@ -144,18 +144,8 @@ app.get("/viewstaff", (req, res) => {
   );
 });
 
-//fetch kepsek & wakil
-app.get("/btnkepsek", (req, res) => {
-  conn.query(
-    "select dataDiri.id, dataDiri.nama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Kepala Sekolah' or dataPekerjaan.jabatan='Wakil Kepala Sekolah'",
-    (err, rows) => {
-      res.json(rows);
-    }
-  );
-});
-
 //fetch staff non aktif
-app.get("/viewnonaktif", (req, res) => {
+app.get("/nonaktif", (req, res) => {
   conn.query(
     "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Non Aktif'",
     (err, rows) => {
