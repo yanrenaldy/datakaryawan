@@ -1,20 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Row, Col, Table } from "react-bootstrap";
 import axios from "axios";
 import NavigationBar from "../../components/NavigationBar";
 import { API_URL } from "../../utils/constants";
 import LoadingPage from "../../components/LoadingPage";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDownloadExcel } from "react-export-table-to-excel";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
 
 function DataKaryawan() {
   const [dataArray, setdataArray] = useState([]);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
-  const location = useLocation()
+  const navigate = useNavigate();
+  const location = useLocation();
   const [yangdipilih, setyangdipilih] = useState({
     tingkat: location.state,
   });
-  const terpilih = yangdipilih.tingkat
+  const terpilih = yangdipilih.tingkat;
+  const tableRef = useRef(null);
+
+  const { onDownload } = useDownloadExcel({
+    currentTableRef: tableRef.current,
+    filename: "Tabel Staff",
+    sheet: "Data",
+  });
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -22,12 +32,12 @@ function DataKaryawan() {
       ...prevState,
       [name]: value,
     }));
-    setLoading(true)
+    setLoading(true);
   };
 
   const handleClick = (state) => {
-    navigate("/view", {state: {nama: state, tingkat: yangdipilih.tingkat}})
-  }
+    navigate("/view", { state: { nama: state, tingkat: yangdipilih.tingkat } });
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -36,7 +46,7 @@ function DataKaryawan() {
       .then((response) => response.data)
       .then((data) => {
         if (isMounted) setdataArray(data);
-        setLoading(false)
+        setLoading(false);
       });
     return () => {
       isMounted = false;
@@ -52,7 +62,11 @@ function DataKaryawan() {
       </Row>
       <Row>
         <Col style={{ marginTop: "90px", marginBottom: "20px" }}>
-          <h5>Data {terpilih}</h5>
+          <h5>
+            Data {terpilih}
+            {"   "}
+            <FontAwesomeIcon icon={faDownload} onClick={onDownload} />
+          </h5>
         </Col>
       </Row>
       <Row style={{ marginRight: "5px" }}>
@@ -60,7 +74,7 @@ function DataKaryawan() {
           {loading ? (
             <LoadingPage />
           ) : (
-            <Table bordered hover id="tabelKaryawan">
+            <Table bordered hover id="tabelKaryawan" ref={tableRef}>
               <thead>
                 <tr>
                   <th>#</th>
@@ -84,9 +98,9 @@ function DataKaryawan() {
                 ))}
               </tbody>
             </Table>
-            )}
-            </Col>
-          </Row>
+          )}
+        </Col>
+      </Row>
     </div>
   );
 }

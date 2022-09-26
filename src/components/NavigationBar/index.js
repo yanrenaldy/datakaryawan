@@ -1,7 +1,14 @@
 import React from "react";
 import { Navbar, Nav, Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function NavigationBar({onChange, yangdipilih}) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/tambahdatadiri")
+  }
+
   return (
     <div>
       <Navbar fixed="top" bg="light" style={{ left: "270px" }}>
@@ -14,7 +21,7 @@ function NavigationBar({onChange, yangdipilih}) {
               value={yangdipilih.tingkat}
               onChange={onChange}
             >
-              <option>Silahkan pilih tingkat</option>
+              <option value="null">Silahkan pilih tingkat</option>
               <option value="TK">TK</option>
               <option value="SD">SD</option>
               <option value="SDPLUS">SD Plus</option>
@@ -26,7 +33,7 @@ function NavigationBar({onChange, yangdipilih}) {
           </Form>
         </Nav>
         <Form className="d-flex">
-          <Button variant="primary" className="me-3">
+          <Button variant="primary" className="me-3" onClick={() => handleClick()}>
             Tambah Data
           </Button>
         </Form>

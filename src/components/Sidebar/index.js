@@ -9,7 +9,16 @@ import {
 import "react-pro-sidebar/dist/css/styles.css";
 import { Routes, Route, Link } from "react-router-dom";
 import { Row, Col, Image } from "react-bootstrap";
-import { DataKaryawan, HomePage, ViewData } from "../../pages";
+import {
+  DataKaryawan,
+  HomePage,
+  TambahDataDiri,
+  ViewData,
+  TambahDataPekerjaan,
+  TambahDataPendidikan,
+  TambahDataSusunanKeluarga,
+  UploadImage,
+} from "../../pages";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faPeopleGroup } from "@fortawesome/free-solid-svg-icons";
 import "../../App.css";
@@ -83,6 +92,20 @@ function Sidebar() {
             <Route path="/" element={<HomePage />} />
             <Route path="/view" element={<ViewData />} />
             <Route path="/datakaryawan" element={<DataKaryawan />} />
+            <Route path="/tambahdatadiri" element={<TambahDataDiri />} />
+            <Route
+              path="/tambahdatapendidikan"
+              element={<TambahDataPendidikan />}
+            />
+            <Route
+              path="/tambahdatapekerjaan"
+              element={<TambahDataPekerjaan />}
+            />
+            <Route
+              path="/tambahdatakeluarga"
+              element={<TambahDataSusunanKeluarga />}
+            />
+            <Route path="/uploadimg" element={<UploadImage />} />
           </Routes>
         </Col>
       </Row>

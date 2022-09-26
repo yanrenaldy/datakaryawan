@@ -75,9 +75,9 @@ app.use(
 );
 
 // fetch semua karyawan aktif dalam bentuk button
-app.get("/datakaryawan", (req, res) => {
+app.get("/null", (req, res) => {
   conn.query(
-    "select dataDiri.id, dataDiri.nama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.statusPekerjaan='Aktif'",
+    "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.statusPekerjaan='Aktif'",
     (err, rows) => {
       res.json(rows);
     }
@@ -87,7 +87,7 @@ app.get("/datakaryawan", (req, res) => {
 // fetch guru tk
 app.get("/tk", (req, res) => {
   conn.query(
-    "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Guru TK'",
+    "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Guru TK' and dataPekerjaan.statusPekerjaan='Aktif'",
     (err, rows) => {
       res.json(rows);
     }
@@ -97,7 +97,7 @@ app.get("/tk", (req, res) => {
 //fetch guru sd reg
 app.get("/sd", (req, res) => {
   conn.query(
-    "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Guru SD Reguler'",
+    "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Guru SD Reguler' and dataPekerjaan.statusPekerjaan='Aktif'",
     (err, rows) => {
       res.json(rows);
     }
@@ -107,7 +107,7 @@ app.get("/sd", (req, res) => {
 //fetch guru sd plus
 app.get("/sdplus", (req, res) => {
   conn.query(
-    "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Guru SD Plus'",
+    "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Guru SD Plus' and dataPekerjaan.statusPekerjaan='Aktif'",
     (err, rows) => {
       res.json(rows);
     }
@@ -117,7 +117,7 @@ app.get("/sdplus", (req, res) => {
 //fetch guru smp
 app.get("/smp", (req, res) => {
   conn.query(
-    "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Guru SMP'",
+    "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Guru SMP' and dataPekerjaan.statusPekerjaan='Aktif'",
     (err, rows) => {
       res.json(rows);
     }
@@ -127,7 +127,7 @@ app.get("/smp", (req, res) => {
 //fetch guru sma
 app.get("/sma", (req, res) => {
   conn.query(
-    "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Guru SMA'",
+    "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Guru SMA' and dataPekerjaan.statusPekerjaan='Aktif'",
     (err, rows) => {
       res.json(rows);
     }
@@ -137,7 +137,7 @@ app.get("/sma", (req, res) => {
 //fetch staff
 app.get("/staff", (req, res) => {
   conn.query(
-    "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Staff'",
+    "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Staff' and dataPekerjaan.statusPekerjaan='Aktif'",
     (err, rows) => {
       res.json(rows);
     }
@@ -147,7 +147,7 @@ app.get("/staff", (req, res) => {
 //fetch staff non aktif
 app.get("/nonaktif", (req, res) => {
   conn.query(
-    "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.jabatan='Non Aktif'",
+    "select dataDiri.id, dataDiri.nama, dataDiri.tempatLahir, dataDiri.tanggalLahir, dataDiri.noHP, dataPekerjaan.noSkPertama from dataDiri join dataPekerjaan on dataDiri.nama=dataPekerjaan.nama where dataPekerjaan.statusPekerjaan='Non Aktif'",
     (err, rows) => {
       res.json(rows);
     }
@@ -267,7 +267,7 @@ app.post("/login", (req, res) => {
 // untuk post pasfoto
 app.post("/pasfoto", (req, res) => {
   var nama = req.body.nama;
-  var userimg = "http://192.168.0.112:8000/" + req.file.path;
+  var userimg = "http://localhost:8000/" + req.file.path;
   var query =
     "insert into pasFoto (nama, userimg)values ('" +
     nama +

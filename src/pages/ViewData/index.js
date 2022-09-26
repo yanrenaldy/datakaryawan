@@ -6,6 +6,7 @@ import axios from "axios";
 import ColoredLine from "../../components/ColoredLine";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import Swal from "sweetalert2";
 
 function ViewData() {
   const location = useLocation();
@@ -16,45 +17,45 @@ function ViewData() {
   const [dataRiwayatPekerjaan, setdataRiwayatPekerjaan] = useState([]);
   const [dataSusunanKeluarga, setdataSusunanKeluarga] = useState([]);
   const [pasFoto, setpasFoto] = useState([]);
-  const [contoh, setcontoh] = useState({
+  const dataState = {
     tingkat: location.state.tingkat,
     nama: location.state.nama,
-  });
+  };
 
   useEffect(() => {
     let isMounted = true;
     axios
-      .get(API_URL + "datadiri/" + contoh.nama)
+      .get(API_URL + "datadiri/" + dataState.nama)
       .then((response) => response.data)
       .then((data) => {
         if (isMounted) setdataDiri(data);
       });
     axios
-      .get(API_URL + "datapendidikan/" + contoh.nama)
+      .get(API_URL + "datapendidikan/" + dataState.nama)
       .then((response) => response.data)
       .then((data) => {
         if (isMounted) setdataPendidikan(data);
       });
     axios
-      .get(API_URL + "datapekerjaan/" + contoh.nama)
+      .get(API_URL + "datapekerjaan/" + dataState.nama)
       .then((response) => response.data)
       .then((data) => {
         if (isMounted) setdataPekerjaan(data);
       });
     axios
-      .get(API_URL + "datariwayatpekerjaan/" + contoh.nama)
+      .get(API_URL + "datariwayatpekerjaan/" + dataState.nama)
       .then((response) => response.data)
       .then((data) => {
         if (isMounted) setdataRiwayatPekerjaan(data);
       });
     axios
-      .get(API_URL + "datasusunankeluarga/" + contoh.nama)
+      .get(API_URL + "datasusunankeluarga/" + dataState.nama)
       .then((response) => response.data)
       .then((data) => {
         if (isMounted) setdataSusunanKeluarga(data);
       });
-      axios
-      .get(API_URL + "pasfoto/" + contoh.nama)
+    axios
+      .get(API_URL + "pasfoto/" + dataState.nama)
       .then((response) => response.data)
       .then((data) => {
         if (isMounted) setpasFoto(data);
@@ -62,7 +63,76 @@ function ViewData() {
     return () => {
       isMounted = false;
     };
-  }, [contoh.nama]);
+  }, [dataState.nama]);
+
+  const nonAktifkan = () => {
+    Swal.fire({
+      title: "Yakin untuk menonaktifkan?",
+      showDenyButton: true,
+      confirmButtonText: "Yes",
+      denyButtonText: `No`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const data = {
+          tglNonAktif: "(" + new Date().toLocaleString() + ")",
+          nama: dataState.nama,
+          disable: true,
+        };
+        axios
+          .put(API_URL + "datapekerjaan/" + dataState.nama, data)
+          .then((res) => {
+            Swal.fire("Saved!", "", "success").then((res) => {
+              window.location.reload();
+            });
+          });
+      } else if (result.isDenied) {
+        Swal.fire("Perubahan data dibatalkan", "", "info");
+      }
+    });
+  };
+
+  const hapusItem = () => {
+    Swal.fire({
+      title: "Yakin untuk menghapus?",
+      showDenyButton: true,
+      confirmButtonText: "Yes",
+      denyButtonText: `No`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(API_URL + "datadiri/" + dataState.nama).catch((error) => {
+          console.log(error);
+        });
+
+        axios
+          .delete(API_URL + "datapekerjaan/" + dataState.nama)
+          .catch((error) => {
+            console.log(error);
+          });
+
+        axios
+          .delete(API_URL + "datapendidikan/" + dataState.nama)
+          .catch((error) => {
+            console.log(error);
+          });
+
+        axios
+          .delete(API_URL + "datariwayatpekerjaan/" + dataState.nama)
+          .catch((error) => {
+            console.log(error);
+          });
+
+        axios
+          .delete(API_URL + "datasusunankeluarga/" + dataState.nama)
+          .then((res) => {
+            Swal.fire("Berhasil dihapus!", "", "success").then((res) => {
+              navigate("/datakaryawan", { state: dataState.tingkat });
+            });
+          });
+      } else if (result.isDenied) {
+        Swal.fire("Perubahan data dibatalkan", "", "info");
+      }
+    });
+  };
 
   return (
     <div>
@@ -76,10 +146,15 @@ function ViewData() {
         }}
       >
         <Col xs={1}>
-          <FontAwesomeIcon icon={faArrowLeft} onClick={() => navigate("/datakaryawan", {state: contoh.tingkat})} />
+          <FontAwesomeIcon
+            icon={faArrowLeft}
+            onClick={() =>
+              navigate("/datakaryawan", { state: dataState.tingkat })
+            }
+          />
         </Col>
         <Col xs={10}>
-          <h5>Data {contoh.nama}</h5>
+          <h5>Data {dataState.nama}</h5>
         </Col>
       </Row>
       <Row>
@@ -236,11 +311,29 @@ function ViewData() {
             <Col>
               {dataPekerjaan.map((dataPekerjaan, index) => (
                 <div className="d-grid gap-2 mt-2" key={index}>
-                  <Button variant="primary">Upload Foto</Button>
-                  <Button variant="primary" disabled={dataPekerjaan.disable}>
+                  <Button
+                    variant="primary"
+                    onClick={() =>
+                      navigate("/uploadimg", {
+                        state: {
+                          nama: dataState.nama,
+                          tingkat: dataState.tingkat,
+                        },
+                      })
+                    }
+                  >
+                    Upload Foto
+                  </Button>
+                  <Button
+                    variant="primary"
+                    onClick={nonAktifkan}
+                    disabled={dataPekerjaan.disable}
+                  >
                     Nonaktifkan
                   </Button>
-                  <Button variant="danger">Hapus</Button>
+                  <Button variant="danger" onClick={hapusItem}>
+                    Hapus
+                  </Button>
                 </div>
               ))}
             </Col>
