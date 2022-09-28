@@ -18,6 +18,11 @@ import {
   TambahDataPendidikan,
   TambahDataSusunanKeluarga,
   UploadImage,
+  UbahDataDiri,
+  UbahDataKeluarga,
+  UbahDataPekerjaan,
+  UbahDataPendidikan,
+  UbahRiwayatKerja,
 } from "../../pages";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faPeopleGroup } from "@fortawesome/free-solid-svg-icons";
@@ -106,6 +111,11 @@ function Sidebar() {
               element={<TambahDataSusunanKeluarga />}
             />
             <Route path="/uploadimg" element={<UploadImage />} />
+            <Route path="/ubahdatadiri" element={<UbahDataDiri />} />
+            <Route path="/ubahdatakeluarga" element={<UbahDataKeluarga />} />
+            <Route path="/ubahpekerjaan" element={<UbahDataPekerjaan />} />
+            <Route path="/ubahpendidikan" element={<UbahDataPendidikan />} />
+            <Route path="/ubahriwayatkerja" element={<UbahRiwayatKerja />} />
           </Routes>
         </Col>
       </Row>

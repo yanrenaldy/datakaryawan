@@ -5,7 +5,7 @@ import { API_URL } from "../../utils/constants";
 import axios from "axios";
 import ColoredLine from "../../components/ColoredLine";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faPencil } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 
 function ViewData() {
@@ -161,7 +161,14 @@ function ViewData() {
         <Col sm={10}>
           {dataDiri.map((dataDiri, index) => (
             <div>
-              <h5 className="mt-3">Data Pribadi</h5>
+              <h5 className="mt-3">
+                Data Pribadi{" "}
+                <FontAwesomeIcon
+                  icon={faPencil}
+                  size="2xs"
+                  onClick={() => navigate("/ubahdatadiri", { state: dataDiri })}
+                />
+              </h5>
               <Row key={index}>
                 <Col sm={2} xs={3} className="mb-3">
                   Nama
@@ -259,7 +266,16 @@ function ViewData() {
             <div>
               <Row key={index}>
                 <Col className="mb-3">
-                  <h5>Keterangan Pekerjaan</h5>
+                  <h5>
+                    Keterangan Pekerjaan{" "}
+                    <FontAwesomeIcon
+                      icon={faPencil}
+                      size="2xs"
+                      onClick={() =>
+                        navigate("/ubahpekerjaan", { state: dataPekerjaan })
+                      }
+                    />
+                  </h5>
                 </Col>
               </Row>
               <Row>
@@ -344,7 +360,16 @@ function ViewData() {
       {dataPendidikan.map((dataPendidikan, index) => (
         <div key={index}>
           <ColoredLine color="black" />
-          <h5>Pendidikan</h5>
+          <h5>
+            Pendidikan{" "}
+            <FontAwesomeIcon
+              icon={faPencil}
+              size="2xs"
+              onClick={() =>
+                navigate("/ubahpendidikan", { state: dataPendidikan })
+              }
+            />
+          </h5>
           <h6>Formal</h6>
           <Table>
             <thead>
@@ -428,7 +453,16 @@ function ViewData() {
       {dataRiwayatPekerjaan.map((dataRiwayatPekerjaan, index) => (
         <div key={index}>
           <ColoredLine color="black" />
-          <h5 className="mt-3">Riwayat Pekerjaan</h5>
+          <h5 className="mt-3">
+            Riwayat Pekerjaan{" "}
+            <FontAwesomeIcon
+              icon={faPencil}
+              size="2xs"
+              onClick={() =>
+                navigate("/ubahriwayatkerja", { state: dataRiwayatPekerjaan })
+              }
+            />
+          </h5>
 
           <Table bordered hover>
             <thead>
@@ -472,7 +506,16 @@ function ViewData() {
       {dataSusunanKeluarga.map((dataSusunanKeluarga, index) => (
         <div key={index}>
           <ColoredLine color="black" />
-          <h5 className="mt-3">Susuan Keluarga</h5>
+          <h5 className="mt-3">
+            Susuan Keluarga{" "}
+            <FontAwesomeIcon
+              icon={faPencil}
+              size="2xs"
+              onClick={() =>
+                navigate("/ubahdatakeluarga", { state: dataSusunanKeluarga })
+              }
+            />
+          </h5>
           <h6>1. Suami/Istri</h6>
           <Table bordered hover>
             <thead>
